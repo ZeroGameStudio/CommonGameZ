@@ -24,3 +24,5 @@ private:
 	TScriptInterface<IZExtenderCollection> ExtenderCollection;
 	
 };
+
+
