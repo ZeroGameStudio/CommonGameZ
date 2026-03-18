@@ -11,6 +11,16 @@ UCLASS(Abstract, NotBlueprintable)
 class COMMONGAMEZRUNTIME_API UZGameInstanceBase : public UGameInstance
 {
 	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintPure)
+	int32 GetNumLocalPlayers() const { return Super::GetNumLocalPlayers(); }
+
+	UFUNCTION(BlueprintPure)
+	ULocalPlayer* GetLocalPlayerByIndex(const int32 index) const { return Super::GetLocalPlayerByIndex(index); }
+
+	UFUNCTION(BlueprintPure)
+	ULocalPlayer* GetFirstGamePlayer() const { return Super::GetFirstGamePlayer(); }
 
 protected:
 	virtual void Init() override;
