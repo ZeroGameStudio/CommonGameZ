@@ -125,6 +125,7 @@ AZLevelPoint* AZLevelAreaBase::GetPointByGameplayTagExact(FGameplayTag tag, bool
 			}
 		}
 	}
+	
 	return nullptr;
 }
 
@@ -154,6 +155,7 @@ AZLevelPoint* AZLevelAreaBase::GetPointByGameplayTagQuery(const FGameplayTagQuer
 			}
 		}
 	}
+	
 	return nullptr;
 }
 
