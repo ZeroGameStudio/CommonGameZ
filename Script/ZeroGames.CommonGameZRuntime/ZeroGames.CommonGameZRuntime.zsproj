@@ -1,0 +1,47 @@
+{
+	"Folder": "ZeroGames",
+	"Authors": "Lin7Han",
+	"Company": "ZeroGames",
+	"AssemblyVersion": "1.0.0",
+	"FileVersion": "1.0.0",
+	"NeutralLanguage": "zh",
+	"ProjectReferences":
+	[
+		"ZeroGames.ZSharp.Core",
+		"ZeroGames.ZSharp.Core.UnrealEngine",
+		"ZeroGames.ZSharp.Core.Async",
+		"ZeroGames.ZSharp.UnrealEngine",
+		"ZeroGames.ZSharp.Emit"
+	],
+	"ExternalReferences":
+    [
+        {
+        	"Name": "ZeroGames.Extensions",
+        	"Path": "$(ZSharpPluginDir)/Managed/ForwardShared/ZeroGames.Extensions.dll"
+        },
+        {
+        	"Name": "ZeroGames.Extensions.Math",
+        	"Path": "$(ZSharpPluginDir)/Managed/ForwardShared/ZeroGames.Extensions.Math.dll"
+        },
+        {
+            "Name": "ZeroGames.Extensions.Async",
+            "Path": "$(ZSharpPluginDir)/Managed/ForwardShared/ZeroGames.Extensions.Async.dll"
+        },
+    	{
+    		"Name": "ZeroGames.Extensions.Pooling",
+    		"Path": "$(ZSharpPluginDir)/Managed/ForwardShared/ZeroGames.Extensions.Pooling.dll"
+    	}
+    ],
+	"PublicUsings":
+	[
+		"ZeroGames.CommonGameZRuntime"
+	],
+    "PrivateUsings":
+    [
+        "ZeroGames.Extensions",
+        "ZeroGames.Extensions.Math",
+		"ZeroGames.Extensions.Async"
+    ]
+}
+
+

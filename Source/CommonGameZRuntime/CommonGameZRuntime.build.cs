@@ -49,8 +49,19 @@ public class CommonGameZRuntime : ModuleRules
 			new string[]
 			{
 				"ApplicationCore",
+				"Niagara",
 			}
 		);
+		
+		if (Target.bBuildEditor)
+		{
+			PrivateDependencyModuleNames.AddRange(
+				new string[]
+				{
+					"UnrealEd",
+				}
+			);
+		}
 		
 		DynamicallyLoadedModuleNames.AddRange
 		(

@@ -1,9 +1,9 @@
 // Copyright Zero Games. All Rights Reserved.
 
-#include "ZLevelAreaBase.h"
+#include "Gameplay/Level/ZLevelAreaBase.h"
 
 #include "EngineUtils.h"
-#include "ZLevelPoint.h"
+#include "Gameplay/Level/ZLevelPoint.h"
 #include "Engine/LevelStreamingDynamic.h"
 
 AZLevelAreaBase::AZLevelAreaBase()

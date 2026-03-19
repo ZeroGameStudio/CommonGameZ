@@ -1,7 +1,6 @@
 ﻿// Copyright Zero Games. All Rights Reserved.
 
-
-#include "ZLevelPoint.h"
+#include "Gameplay/Level/ZLevelPoint.h"
 
 #include "Net/UnrealNetwork.h"
 
