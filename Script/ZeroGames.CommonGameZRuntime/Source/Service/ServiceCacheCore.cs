@@ -4,11 +4,17 @@ using System.Reflection;
 
 namespace ZeroGames.CommonGameZRuntime;
 
-public class ServiceCacheComp
+public struct ServiceCacheCore
 {
 
     public bool TryGetService<T>(ServiceId serviceId, out T? service) where T : class, IService<T>
     {
+        if (_cache is null)
+        {
+            service = null;
+            return false;
+        }
+        
         Type serviceType = typeof(T);
         if (!_cache.TryGetValue(serviceType, out var cache))
         {
@@ -39,7 +45,7 @@ public class ServiceCacheComp
     public bool TrySetService<T>(ServiceId serviceId, IService<T>? service) where T : class, IService<T>
     {
         Type serviceType = typeof(T); // 注意：要缓存的是指定类型的服务，而不是服务对象的实际类型。
-        if (!IsServiceTypeCacheable(serviceType))
+        if (!ServiceHelper.IsServiceTypeCacheable(serviceType))
         {
             return false;
         }
@@ -53,7 +59,8 @@ public class ServiceCacheComp
         {
             return false;
         }
-        
+
+        _cache ??= [];
         if (!_cache.TryGetValue(serviceType, out var cache))
         {
             cache = new() { [serviceId] = service };
@@ -63,7 +70,7 @@ public class ServiceCacheComp
 
         if (cache.TryGetValue(serviceId, out var existing) && !ReferenceEquals(existing, service))
         {
-            UE_WARNING(LogZSharpScript, $"Service {{{serviceType.FullName}, {serviceId.Value}}} already cached a different instance!");
+            UE_WARNING(LogCommonGameZRuntimeScript, $"Service {{{serviceType.FullName}, {serviceId.Value}}} already cached a different instance!");
             return false;
         }
 
@@ -71,50 +78,25 @@ public class ServiceCacheComp
         return true;
     }
     
-    public bool IsServiceTypeCacheable(Type serviceType)
-    {
-        if (!serviceType.IsClass || serviceType.IsInterface || serviceType.IsAbstract)
-        {
-            return false;
-        }
-
-        if (!serviceType.IsAssignableTo(typeof(IService<>).MakeGenericType(serviceType)))
-        {
-            return false;
-        }
-
-        if (serviceType.GetCustomAttribute<ServiceLifetimeAttribute>() is not { } attr)
-        {
-            return false;
-        }
-
-        if (attr.Lifetime is EServiceLifetime.Dynamic)
-        {
-            return false;
-        }
-
-        return true;
-    }
-    
     public void Invalidate()
     {
-        _cache.Clear();
+        _cache?.Clear();
     }
 
     public void Invalidate(Type serviceType)
     {
-        _cache.Remove(serviceType);
+        _cache?.Remove(serviceType);
     }
 
     public void Invalidate(Type serviceType, ServiceId serviceId)
     {
-        if (_cache.TryGetValue(serviceType, out var cache))
+        if (_cache?.TryGetValue(serviceType, out var cache) is true)
         {
             cache.Remove(serviceId);
         }
     }
 
-    private readonly Dictionary<Type, Dictionary<ServiceId, object?>> _cache = [];
+    private Dictionary<Type, Dictionary<ServiceId, object?>>? _cache;
 
 }
 

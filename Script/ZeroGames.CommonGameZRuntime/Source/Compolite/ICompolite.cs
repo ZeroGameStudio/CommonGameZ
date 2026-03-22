@@ -2,9 +2,26 @@
 
 namespace ZeroGames.CommonGameZRuntime;
 
-public interface ICompolite<TSchema> : ICompoliteLifecycle<TSchema> where TSchema : class
+public enum ECompoliteLifecycleStage : uint8
 {
-	TSchema Owner { get; }
+	Allocated,
+	Initialized,
+	Playing,
+	Dead,
+}
+
+public interface ICompolite : ICompoliteLifecycleSource
+{
+	object? Owner { get; }
+}
+
+public static class CompoliteExtensions
+{
+	extension(ICompolite @this)
+	{
+		public T? GetOwner<T>() where T : class => @this.Owner as T;
+		public T GetOwnerChecked<T>() where T : class => @this.Owner as T ?? throw new InvalidOperationException();
+	}
 }
 
 

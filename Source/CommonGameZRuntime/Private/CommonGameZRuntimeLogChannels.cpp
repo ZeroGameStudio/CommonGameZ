@@ -2,7 +2,11 @@
 
 #include "CommonGameZRuntimeLogChannels.h"
 
-DEFINE_LOG_CATEGORY(LogCommonGameZRuntime);
+#include "Misc/Log/ZRegisterLogCategoryMacros.h"
 
+DEFINE_LOG_CATEGORY(LogCommonGameZRuntime);
+DEFINE_LOG_CATEGORY_STATIC(LogCommonGameZRuntimeScript, Log, All)
+
+ZSHARP_REGISTER_LOG_CATEGORY(LogCommonGameZRuntimeScript)
 
 

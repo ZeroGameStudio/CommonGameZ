@@ -41,6 +41,10 @@
         "ZeroGames.Extensions",
         "ZeroGames.Extensions.Math",
 		"ZeroGames.Extensions.Async"
+    ],
+    "PrivateStaticUsings":
+    [
+    	"ZeroGames.CommonGameZRuntime.LogChannels"
     ]
 }
 

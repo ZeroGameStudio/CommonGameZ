@@ -22,7 +22,7 @@ public class Blackboard : IBlackboard
 			Type t2 = value.GetType();
 			if (!t1.IsAssignableTo(t2) && !t2.IsAssignableTo(t1))
 			{
-				UE_WARNING(LogZSharpScript, $"[BehaviorTree.SetBlackboardValue] Unrelated types {t1.FullName} and {t2.FullName}.");
+				UE_WARNING(LogCommonGameZRuntimeScript, $"[BehaviorTree.SetBlackboardValue] Unrelated types {t1.FullName} and {t2.FullName}.");
 			}
 		}
 		

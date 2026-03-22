@@ -146,7 +146,7 @@ public class CheatEngine : ICheatEngine
             }
         }
         
-        UE_LOG(LogZSharpScript, $"Run cheat {string.Join(" ", arguments.Select(a => a?.ToString()).Prepend(command.Name))}.");
+        UE_LOG(LogCommonGameZRuntimeScript, $"Run cheat {string.Join(" ", arguments.Select(a => a?.ToString()).Prepend(command.Name))}.");
         return command.Method.Invoke(command.Cheater, arguments);
     }
 
@@ -205,7 +205,7 @@ public class CheatEngine : ICheatEngine
 
         CommandNotFound:
         {
-            UE_WARNING(LogZSharpScript, $"Cheat command {command} not found!");
+            UE_WARNING(LogCommonGameZRuntimeScript, $"Cheat command {command} not found!");
             return null;
         }
     }

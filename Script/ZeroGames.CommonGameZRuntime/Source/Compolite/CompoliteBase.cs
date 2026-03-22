@@ -1,54 +1,49 @@
 ﻿// Copyright Zero Games. All Rights Reserved.
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ZeroGames.CommonGameZRuntime;
 
-public class CompoliteBase<TSchema> : ICompolite<TSchema> where TSchema : class
+public abstract class CompoliteBase : ICompolite, ICompoliteLifecycle
 {
-	protected virtual void Initialize(){}
-	protected virtual void Activate(){}
-	protected virtual void Deactivate(){}
+	protected virtual void Initialized(){}
+	protected virtual void BegunPlay(){}
+	protected virtual void EndingPlay(){}
 	
-	#region ICompolite<AActor> Implementations
-	
-	void ICompoliteLifecycle<TSchema>.Initialize(TSchema owner)
-	{
-		if (owner is not ICompoliteOwner<TSchema>)
-		{
-			throw new ArgumentOutOfRangeException(nameof(owner));
-		}
-		
-		this.GuardLifecycleStateExactly(ECompoliteLifecycleState.NotInitialized);
+	#region ICompolite Implementations
 
-		Owner = owner;
-		LifecycleState = ECompoliteLifecycleState.Initialized;
+	public ECompoliteLifecycleStage LifecycleStage { get; private set; }
+	
+	public abstract object? Owner { get; }
+	
+	#endregion
+	
+	#region ICompoliteLifecycle Implementations
+	
+	void ICompoliteLifecycle.Initialize()
+	{
+		this.GuardLifecycleStageExactly(ECompoliteLifecycleStage.Allocated);
 		
-		Initialize();
+		LifecycleStage = ECompoliteLifecycleStage.Initialized;
+		
+		Initialized();
 	}
 
-	void ICompoliteLifecycle<TSchema>.Activate()
+	void ICompoliteLifecycle.BeginPlay()
 	{
-		this.GuardLifecycleStateExactly(ECompoliteLifecycleState.Initialized);
+		this.GuardLifecycleStageExactly(ECompoliteLifecycleStage.Initialized);
 
-		LifecycleState = ECompoliteLifecycleState.Activated;
+		LifecycleStage = ECompoliteLifecycleStage.Playing;
 		
-		Activate();
+		BegunPlay();
 	}
 
-	void ICompoliteLifecycle<TSchema>.Deactivate()
+	void ICompoliteLifecycle.EndPlay()
 	{
-		this.GuardLifecycleStateExactly(ECompoliteLifecycleState.Activated);
+		this.GuardLifecycleStageExactly(ECompoliteLifecycleStage.Playing);
 
-		Deactivate();
+		EndingPlay();
 		
-		LifecycleState = ECompoliteLifecycleState.Deactivated;
+		LifecycleStage = ECompoliteLifecycleStage.Dead;
 	}
-
-	public ECompoliteLifecycleState LifecycleState { get; private set; }
-	
-	[AllowNull]
-	public TSchema Owner { get; private set; }
 	
 	#endregion
 }

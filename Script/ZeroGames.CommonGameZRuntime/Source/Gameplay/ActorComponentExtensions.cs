@@ -10,6 +10,9 @@ public static class ActorComponentExtensions
 {
     extension(UActorComponent @this)
     {
+        public T? GetService<T>(ServiceId requiredId) where T : class, IService<T>
+            => @this.GetOwner() is { } owner ? owner.GetService<T>(requiredId) : ServiceHelper.GetService<T, UActorComponent>(@this, requiredId);
+
         [Conditional("DEBUG")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void GuardAuthority()
