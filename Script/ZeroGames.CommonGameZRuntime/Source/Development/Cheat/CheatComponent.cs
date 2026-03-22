@@ -3,7 +3,7 @@
 namespace ZeroGames.CommonGameZRuntime;
 
 [UClass, DefaultToTransient, DefaultToReplicated, NotBlueprintable]
-public partial class UZrpgCheatComponent : UZActorComponentBase
+public partial class UZCheatComponent : UZActorComponentBase
 {
 
     [UFunction, Server, Reliable, SealedEvent]

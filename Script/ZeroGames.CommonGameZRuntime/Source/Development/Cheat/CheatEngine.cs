@@ -42,8 +42,8 @@ public class CheatEngine : ICheatEngine
             alc.OnAssemblyLoaded += LootGlobalCheaters;
         }
         
-        _ = new AutoConsoleCommand("ZRPG.Cheat", "Run cheat command.", command => Cheat(command[0], command[1..]));
-        _ = new AutoConsoleCommand("ZRPG.AuthCheat", "Run cheat command on authority.", command => AuthorityCheat(command[0], command[1..]));
+        _ = new AutoConsoleCommand("Z.Cheat", "Run cheat command.", command => Cheat(command[0], command[1..]));
+        _ = new AutoConsoleCommand("Z.AuthCheat", "Run cheat command on authority.", command => AuthorityCheat(command[0], command[1..]));
     }
     
     private void LootGlobalCheaters(Assembly assembly)
@@ -163,7 +163,7 @@ public class CheatEngine : ICheatEngine
             return;
         }
 
-        if (pc.GetComponent<UZrpgCheatComponent>() is not { } cheatComp)
+        if (pc.GetComponent<UZCheatComponent>() is not { } cheatComp)
         {
             return;
         }

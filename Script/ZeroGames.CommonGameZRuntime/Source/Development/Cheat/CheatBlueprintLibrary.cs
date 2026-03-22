@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace ZeroGames.CommonGameZRuntime;
 
 [UClass, Abstract]
-public partial class UZrpgCheatBlueprintLibrary : UBlueprintFunctionLibrary
+public partial class UZCheatBlueprintLibrary : UBlueprintFunctionLibrary
 {
 
     [UFunction, BlueprintCallable]
